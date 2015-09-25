@@ -202,8 +202,8 @@ def main():
     # use the loss and loss_deriv dictionaries here
     # along with the 3 functions: loss_calculator, loss_grad_calculator,
     # and loss_grad_1d_calculator
-    squared_loss = loss_calculator(X, Y, loss['squared'], beta_star)
-    squared_loss_grad = loss_grad_calculator(X, Y, loss_deriv['squared'], beta_star)
+    squared_loss = lambda p: loss_calculator(p, Y, loss['squared'], beta_star)
+    squared_loss_grad = lambda p: loss_grad_calculator(X, Y, loss_deriv['squared'], beta_star)
     squared_loss_grad_1d = loss_grad_1d_calculator(X, Y, loss_deriv['squared'], beta_star, 0)
 
     print "="*80

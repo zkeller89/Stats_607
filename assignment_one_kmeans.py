@@ -134,6 +134,8 @@ def recompute_centers(instances, cluster_ids, centers):
         # Use a single list comprehension.
         one_cluster = [instances.index(x) for x,y in zip(instances,cluster_ids) if y == i]
         cluster_size = len(one_cluster)
+        if cluster_size == 0:  # empty cluster
+            raise Exception("kmeans: empty cluster created.")
 
         # TASK 1.5.2
         # Suppose one_cluster is [i1, i2, i3, ... ]
