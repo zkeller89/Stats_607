@@ -35,7 +35,7 @@ def gradient_descent(func_grad, init_point, step_size, num_iters):
 
         # TASK 2.1.1
         # multiply gradient by step size
-        scaled_gradient = [map(lambda x: x * step_size, curr_gradient)]
+        scaled_gradient = map(lambda x: x * step_size, curr_gradient)
 
         # TASK 2.1.2
         # subtract scaled gradient from current iterate
@@ -202,9 +202,9 @@ def main():
     # use the loss and loss_deriv dictionaries here
     # along with the 3 functions: loss_calculator, loss_grad_calculator,
     # and loss_grad_1d_calculator
-    squared_loss = lambda p: loss_calculator(p, Y, loss['squared'], beta_star)
-    squared_loss_grad = lambda p: loss_grad_calculator(X, Y, loss_deriv['squared'], beta_star)
-    squared_loss_grad_1d = loss_grad_1d_calculator(X, Y, loss_deriv['squared'], beta_star, 0)
+    squared_loss = lambda p: loss_calculator(X,Y, loss['squared'], p)
+    squared_loss_grad = lambda p: loss_grad_calculator(X, Y, loss_deriv['squared'], p)
+    squared_loss_grad_1d = lambda p,j: loss_grad_1d_calculator(X, Y, loss_deriv['squared'], p, j)
 
     print "="*80
     print "Gradient Descent Test"
@@ -265,9 +265,9 @@ def main():
     # use the loss and loss_deriv dictionaries here
     # along with the 3 functions: loss_calculator, loss_grad_calculator,
     # and loss_grad_1d_calculator
-    logistic_loss = None
-    logistic_loss_grad = None
-    logistic_loss_grad_1d = None
+    logistic_loss = lambda p: loss_calculator(X,Y, loss['logistic'], p)
+    logistic_loss_grad = lambda p: loss_grad_calculator(X, Y, loss_deriv['logistic'], p)
+    logistic_loss_grad_1d = lambda p,j: loss_grad_1d_calculator(X, Y, loss_deriv['logistic'], p, j)
 
     print "="*80
     print "Gradient Descent Test (logistic regression)"
