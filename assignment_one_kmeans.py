@@ -25,7 +25,7 @@ def read_data(filename):
 
         # TASK 1.1.1
         # Remove label (last item) from instance_and_label and append it
-      	# to labels
+        # to labels
         labels.append(instance_and_label.pop())
 
         # TASK 1.1.2
@@ -52,25 +52,25 @@ def num_unique_labels(labels):
 # (Steps 1 through 4)
 def kmeans_plus_plus(instances, K):
     """ Choose K centers from instances using the kmeans++ initialization. """
-    
+
     centers = []
     insts = instances[:]
-    
-    ### select random center - step 1
+
+    # select random center - step 1
     cntr = random.choice(insts)
     centers.append(cntr)
-    insts.remove(cntr)   
+    insts.remove(cntr)
 
-    ###    loop k-1 times to add k-1 centers (note we selected 1st at random)
+    # loop k-1 times to add k-1 centers (note we selected 1st at random)
     for n in xrange(K-1):
         probs = []
-        ###    loop to assign probabilities with respect to euclidean dist from nearest center
+        # assign probabilities as min euclidean dist from nearest center
         for inst in insts:
-            distances = [euclidean_squared(inst,x) for x in centers]
-            probs.append(min(distances))                     
-        
-        ###    elect new center based on weighted probabilities
-        x = random.uniform(0,sum(probs))
+            distances = [euclidean_squared(inst, x) for x in centers]
+            probs.append(min(distances))
+
+        # select new center based on weighted probabilities
+        x = random.uniform(0, sum(probs))
         cum_prob = 0.0
 
         for item, prob in zip(insts, probs):
@@ -81,7 +81,6 @@ def kmeans_plus_plus(instances, K):
                 break
 
     return centers
-                    
 
 
 def euclidean_squared(p1, p2):
@@ -105,7 +104,7 @@ def assign_cluster_ids(instances, centers):
         # Compute distances of instances[i] to each of the centers using a list
         # comprehension. Make use of the euclidean_squared function defined
         # above.
-        distances = [euclidean_squared(instances[i],x) for x in centers]
+        distances = [euclidean_squared(instances[i], x) for x in centers]
 
         # Find the minimum distance.
         min_distance = min(distances)
@@ -132,7 +131,8 @@ def recompute_centers(instances, cluster_ids, centers):
         # TASK 1.5.1
         # Find indices of of those instances whose cluster id is i.
         # Use a single list comprehension.
-        one_cluster = [instances.index(x) for x,y in zip(instances,cluster_ids) if y == i]
+        one_cluster = [instances.index(x) for x, y in
+                       zip(instances, cluster_ids) if y == i]
         cluster_size = len(one_cluster)
         if cluster_size == 0:  # empty cluster
             raise Exception("kmeans: empty cluster created.")
@@ -144,7 +144,9 @@ def recompute_centers(instances, cluster_ids, centers):
         # Supply the right 1st arg: a lambda function (this should take two
         # points [represented as lists] as arguments and return their sum) and
         # the right 2nd arg: a list (computed using a list comprehension)
-        sum_cluster = reduce(lambda x, y: [a + b for a,b in zip(x,y)], [instances[ind] for ind in one_cluster])
+        sum_cluster = reduce(lambda x, y:
+                             [a + b for a, b in zip(x, y)],
+                             [instances[ind] for ind in one_cluster])
         centers[i] = [x/cluster_size for x in sum_cluster]
 
 
@@ -222,4 +224,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

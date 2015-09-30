@@ -55,7 +55,8 @@ def get_fold_indices(n, num_folds, fold_id):
         # TASK 3.1.2
         # set train_indices correctly
         # by concatenating two ranges
-        train_indices = range(0, fold_size * fold_id) + range(fold_size * (fold_id + 1), n)
+        train_indices = range(0, fold_size * fold_id) + \
+                        range(fold_size * (fold_id + 1), n)
 
     # TASK 3.1.3
     # set test_indices to those indices in range(n)
@@ -181,7 +182,8 @@ def main():
             # and create a k-NN classifier
             train_data = [instances[x] for x in fold_train_indices]
             train_labels = [labels[x] for x in fold_train_indices]
-            classifier = lambda p: nn_classifier(p, train_data, train_labels, k, K)
+            classifier = lambda p: \
+                nn_classifier(p, train_data, train_labels, k, K)
 
             # TASK 3.4.2
             # get the test data and labels

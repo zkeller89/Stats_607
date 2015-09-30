@@ -39,7 +39,7 @@ def gradient_descent(func_grad, init_point, step_size, num_iters):
 
         # TASK 2.1.2
         # subtract scaled gradient from current iterate
-        curr_iter = [x - y for x,y in zip(curr_iter, scaled_gradient)]
+        curr_iter = [x - y for x, y in zip(curr_iter, scaled_gradient)]
 
     return curr_iter
 
@@ -78,7 +78,8 @@ def coordinate_descent(func_grad_1d, init_point, step_size, num_iters,
         # TASK 2.2.3
         # update each of the chosen coordinates
         for j in coordinates:
-            curr_iter[j] = curr_iter[j] - step_size * func_grad_1d(curr_iter, j)
+            curr_iter[j] = curr_iter[j] - step_size * func_grad_1d(curr_iter,
+                                                                   j)
 
     return curr_iter
 
@@ -89,7 +90,7 @@ def coordinate_descent(func_grad_1d, init_point, step_size, num_iters,
 def vector_dot(u, v):
     """ Return the dot (or inner) product between u and v."""
 
-    return sum([x * y for x,y in zip(u,v)])
+    return sum([x * y for x, y in zip(u, v)])
 
 
 def loss_calculator(X, Y, scalar_loss, beta):
@@ -130,11 +131,12 @@ def loss_grad_calculator(X, Y, scalar_loss_deriv, beta):
         # TASK 2.3.2
         # calculate gradient (w.r.t. beta) of the loss on example i
         # (you'll need to use scalar_loss_deriv here)
-        loss_grad_on_i = [a * scalar_loss_deriv(inner_prod,Y[i]) for a in X[i]]
+        loss_grad_on_i = [a * scalar_loss_deriv(inner_prod,
+                                                Y[i]) for a in X[i]]
 
         # TASK 2.3.3
         # add loss_grad_on_i (elementwise) to the sum so far
-        loss_grad_sum = [x + y for x,y in zip(loss_grad_sum, loss_grad_on_i)]
+        loss_grad_sum = [x + y for x, y in zip(loss_grad_sum, loss_grad_on_i)]
 
     # divide by no. of samples before returning
     return [x/n for x in loss_grad_sum]
@@ -159,7 +161,7 @@ def loss_grad_1d_calculator(X, Y, scalar_loss_deriv, beta, j):
         # calculate partial derivative (w.r.t. beta_j) of the loss on example i
         # (you'll need to use scalar_loss_deriv here)
         # and add it to the sum so far
-        loss_grad_1d_sum += scalar_loss_deriv(inner_prod,Y[i]) * X[i][j]
+        loss_grad_1d_sum += scalar_loss_deriv(inner_prod, Y[i]) * X[i][j]
 
     # divide by no. of sample before returning
     return loss_grad_1d_sum/n
@@ -202,9 +204,11 @@ def main():
     # use the loss and loss_deriv dictionaries here
     # along with the 3 functions: loss_calculator, loss_grad_calculator,
     # and loss_grad_1d_calculator
-    squared_loss = lambda p: loss_calculator(X,Y, loss['squared'], p)
-    squared_loss_grad = lambda p: loss_grad_calculator(X, Y, loss_deriv['squared'], p)
-    squared_loss_grad_1d = lambda p,j: loss_grad_1d_calculator(X, Y, loss_deriv['squared'], p, j)
+    squared_loss = lambda p: loss_calculator(X, Y, loss['squared'], p)
+    squared_loss_grad = lambda p: \
+        loss_grad_calculator(X, Y, loss_deriv['squared'], p)
+    squared_loss_grad_1d = lambda p, j: \
+        loss_grad_1d_calculator(X, Y, loss_deriv['squared'], p, j)
 
     print "="*80
     print "Gradient Descent Test"
@@ -265,9 +269,11 @@ def main():
     # use the loss and loss_deriv dictionaries here
     # along with the 3 functions: loss_calculator, loss_grad_calculator,
     # and loss_grad_1d_calculator
-    logistic_loss = lambda p: loss_calculator(X,Y, loss['logistic'], p)
-    logistic_loss_grad = lambda p: loss_grad_calculator(X, Y, loss_deriv['logistic'], p)
-    logistic_loss_grad_1d = lambda p,j: loss_grad_1d_calculator(X, Y, loss_deriv['logistic'], p, j)
+    logistic_loss = lambda p: loss_calculator(X, Y, loss['logistic'], p)
+    logistic_loss_grad = lambda p: \
+        loss_grad_calculator(X, Y, loss_deriv['logistic'], p)
+    logistic_loss_grad_1d = lambda p, j: \
+        loss_grad_1d_calculator(X, Y, loss_deriv['logistic'], p, j)
 
     print "="*80
     print "Gradient Descent Test (logistic regression)"
@@ -302,7 +308,6 @@ def main():
     print "True parameter: %s" % str(beta_star)
     print "Estimated parameter: %s" % str(final_point)
     print "Optimization took %f seconds." % (t1 - t0)
-
 
 if __name__ == '__main__':
     main()
